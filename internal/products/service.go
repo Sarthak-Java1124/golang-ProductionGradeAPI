@@ -9,6 +9,7 @@ import (
 
 type Service interface {
 	ListProducts(ctx context.Context) ([]repo.Product, error)
+	FindProductsById(ctx context.Context, id int64) (repo.Product, error)
 }
 
 type SVC struct {
@@ -28,4 +29,12 @@ func (s *SVC) ListProducts(ctx context.Context) ([]repo.Product, error) {
 	}
 	return products, nil
 
+}
+
+func (s *SVC) FindProductsById(ctx context.Context, id int64) (repo.Product, error) {
+	product, err := s.repo.FindProductsById(ctx, id)
+	if err != nil {
+		return product, err
+	}
+	return product, nil
 }
